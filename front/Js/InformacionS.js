@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!response.ok) {
                         throw new Error('Error al eliminar la sala');
                     }
-                    actualizarCampanaNotificaciones(`Se ha eliminado la sala ${Nombre}`);
+                   
                     const SalasCard = document.querySelector(`.card[data-nombre="${Nombre}"]`);
                     if (SalasCard) {
                         SalasCard.remove();
