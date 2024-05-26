@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const sala = urlParams.get('sala');
+    
 
     if (sala) {
         fetch(`http://localhost:3000/consulta/${sala}`)
@@ -124,10 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         const equipoCard = document.querySelector(`.card[data-serial="${serial}"]`);
                         if (equipoCard) {
                             equipoCard.remove();
-                            alert('Equipo eliminado correctamente, ');
+                            console.log('Equipo eliminado correctamente, ');
                         } else {
                             console.error('El elemento a eliminar no se encontró en el DOM.');
                             alert(`El equipo con el id: ${serial} ha sido eliminado, Atualiza la pagina para ver los cambios`);
+                            window.location.reload()
                         }
                     })
                     .catch(error => {

@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form-Eventos');
     const equiposContainer = document.getElementById('equipos-container');
+
+    
+
+
+
     fetch('http://localhost:3000/Salas')
         .then(response => {
             if (!response.ok) {
