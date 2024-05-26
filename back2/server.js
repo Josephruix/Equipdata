@@ -99,7 +99,7 @@ app.post("/verificar-usuario", function (req, res) {
                     }
                 } else {
                     res.status(404).json({
-                        mensaje: "Usuario no encontrado"
+                        mensaje: "Usuario no encontrado,Por favor registrese"
                     });
                 }
             }
