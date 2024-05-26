@@ -21,15 +21,15 @@ const upload = multer({
     storage: storage
 });
 
-app.post("/guardar-datos", function (req, res) {
+app.post("/guardar-datos",upload.single('imagenPerfil'), function (req, res) {
     const datos = req.body;
+    const imagenPerfil = req.file;
 
     const nombre = datos.nombre;
     const Contrasena = datos.Contrasena;
     const Correo = datos.Correo;
     const Rol = datos.Rol;
 
-    // Verificar si el correo ya está registrado
     conexion.query(
         `SELECT * FROM usuarios WHERE Correo = ?`,
         [Correo],
@@ -45,8 +45,8 @@ app.post("/guardar-datos", function (req, res) {
                         mensaje: "El usuario ya existe"
                     });
                 } else {
-                    let insertar = `INSERT INTO usuarios (Nombre, Correo, Contraseña, Rol) VALUES (?, ?, ?, ?)`;
-                    conexion.query(insertar, [nombre, Correo, Contrasena, Rol], function (error) {
+                    let insertar = `INSERT INTO usuarios (Nombre, Correo, Contraseña, Rol,img) VALUES (?, ?, ?, ?,?)`;
+                    conexion.query(insertar, [nombre, Correo, Contrasena, Rol,imagenPerfil], function (error) {
                         if (error) {
                             console.error('Error al insertar datos:', error);
                             return res.status(500).json({

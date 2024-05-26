@@ -8,11 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const usuario = JSON.parse(usuarioJSON);
 
     if (usuario) {
-        const perfilContainer = document.getElementById('Perfil');
-        
+       
+        profileImageContainer.appendChild(profileImage);
+        perfilContainer.appendChild(profileImageContainer);
+
         const profileName = document.createElement('h1');
         profileName.classList.add("profile-name");
-        profileName.textContent = usuario.Nombre;
+        profileName.textContent = usuario.Nombre; 
 
         const profileRole = document.createElement('p');
         profileRole.classList.add("profile-role");
