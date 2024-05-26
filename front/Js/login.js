@@ -6,26 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const Contrasena = document.getElementById("Contrasena").value;
         const errorElement = document.getElementById('error');
     
-         
-            const usuarioAutenticado = JSON.parse(localStorage.getItem('usuario'));
-        
-            
-            if (usuarioAutenticado && usuarioAutenticado.tipo === 'admind') {
-                
-                const botonesEliminarSalas = document.querySelectorAll('.eliminar-Salas');
-                botonesEliminarSalas.forEach(boton => {
-                    boton.style.display = 'block';
-                });
-        
-                const botonesEliminarEquipos = document.querySelectorAll('.eliminar-equipo');
-                botonesEliminarEquipos.forEach(boton => {
-                    boton.style.display = 'block';
-                });
-            }
-            
-     
-        
-        
         errorElement.innerText = '';
 
         if (usuario.trim() === '' || Contrasena.trim() === '') {
@@ -49,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             console.log('Inicio de sesión exitoso:', data);
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            window.location.href = "/front/Html/Salas.html"; 
+            localStorage.setItem('rolUsuario', data.Rol); 
+            console.log(localStorage.setItem('rolUsuario', data.Rol))
+           window.location.href = "/front/Html/Salas.html"; 
         })
         .catch(error => {
             console.error('Error:', error);

@@ -70,14 +70,7 @@ app.post("/guardar-datos", function (req, res) {
 /*verificacion-usuario*/
 
 app.post("/verificar-usuario", function (req, res) {
-    const {
-        usuario,
-        Contrasena
-    } = req.body;
-    console.log({
-        usuario,
-        Contrasena
-    });
+    const { usuario, Contrasena } = req.body;
 
     conexion.query(
         `SELECT * FROM usuarios WHERE Correo = ?`,
@@ -91,9 +84,13 @@ app.post("/verificar-usuario", function (req, res) {
             } else {
                 if (resultados.length > 0) {
                     if (resultados[0].Contraseña === Contrasena) {
+                 
+                        const rolUsuario = resultados[0].Rol;
+                       
                         res.json({
                             mensaje: "Inicio de sesión exitoso",
-                            usuario: resultados[0]
+                            usuario: resultados[0],
+                            rol: rolUsuario
                         });
                     } else {
                         res.status(401).json({

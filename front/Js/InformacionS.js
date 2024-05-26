@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p class="card-text">Capacidad de equipos: ${datos.Capacidad_de_Equipos}</p>
                           
                             <button class="btn btn-primary ver-mas" data-sala="${datos.Nombre}">Ver Más</button>
-                            <button class="btn btn-danger eliminar-Salas" data-nombre="${datos.Nombre}">Eliminar</button>
+                            <button id="eliminar-s" class="btn btn-danger eliminar-Salas" data-nombre="${datos.Nombre}">Eliminar</button>
                         </div>
                     </div>
                 `;
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (equipos.length > 0) {
                 alert(`Antes de eliminar la sala "${Nombre}", asegúrese de mover o eliminar los siguientes equipos:\n${equipos.map(equipo => equipo.Marca).join('\n')}`);
             } else {
-                // Si no hay equipos en la sala, procede con la eliminación
+                
                 fetch(`http://localhost:3000/eliminar-Salas/${Nombre}`, {
                     method: 'DELETE',
                 })
