@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             console.log('Equipo eliminado correctamente, ');
                         } else {
                             console.error('El elemento a eliminar no se encontró en el DOM.');
-                            alert(`El equipo con el id: ${serial} ha sido eliminado, Atualiza la pagina para ver los cambios`);
+                            alert(`El equipo con el id: ${serial} ha sido eliminado, se atualizara la pagina para ver lo cambios`);
                             window.location.reload()
                         }
                     })
