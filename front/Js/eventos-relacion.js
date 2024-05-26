@@ -1,6 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form-Eventos');
     const equiposContainer = document.getElementById('equipos-container');
+    fetch('http://localhost:3000/Salas')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener los datos de las Salas');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const salaSelect = document.getElementById('relacion');
+            const salaSelect2 = document.getElementById('final');
+            data.forEach(sala => {
+                const option = document.createElement('option');
+                option.value = sala.Nombre;
+                option.textContent = sala.Nombre;
+                salaSelect.appendChild(option);
+                
+                const option2 = document.createElement('option');
+                option2.value = sala.Nombre;
+                option2.textContent = sala.Nombre;
+                salaSelect2.appendChild(option2);
+               salaSelect2.appendChild(option2);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     
     form.addEventListener('change', (event) => {
         if (event.target.id === 'relacion') {

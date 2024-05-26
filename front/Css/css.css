@@ -156,7 +156,10 @@ body{
         margin-right: auto;
         max-width: 400px; 
     }
-    
+    .submitS{
+        background-color: #010911;
+        color: #fff;
+    }
     /*Perfil*/
     .profile-container {
         margin-top: 80px; /* Ajusta el valor según sea necesario */

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var PuertosR = document.getElementById('N-R').value;
     
         var CapacidadE = document.getElementById('C-Equipos').value;
-        var SalaE = document.getElementById('Sala-E').value;
+       
 
     
         var datos = {
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             Ubicacion: Ubicacion,
             PuertosR: PuertosR,
             CapacidadE: CapacidadE,
-            SalaE: SalaE
+           
         };
 
         
@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             console.log('Respuesta del servidor:', data);
             document.getElementById('success-message').innerText = "Se agrego la nueva Sala";
+            alert("Se agrego la nueva Sala")
             window.location.href = `/front/html/nuevoequipo.html`;
         })
         .catch(error => {

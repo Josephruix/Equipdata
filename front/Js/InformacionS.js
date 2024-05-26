@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h5 class="card-title">Nombre: ${datos.Nombre}</h5>
                             <p class="card-text">Ubicacion: ${datos.ubicacion}</p>
                             <p class="card-text">Capacidad de equipos: ${datos.Capacidad_de_Equipos}</p>
-                            <p class="card-text">N-Equipos en la sala: ${datos.Equipos_en_sala}</p>
+                          
                             <button class="btn btn-primary ver-mas" data-sala="${datos.Nombre}">Ver Más</button>
                             <button class="btn btn-danger eliminar-Salas" data-nombre="${datos.Nombre}">Eliminar</button>
                         </div>
@@ -41,7 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            function eliminarSala(Nombre) {
+           function eliminarSala(Nombre) {
+    fetch(`http://localhost:3000/consulta/${Nombre}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al obtener la lista de equipos de la sala');
+            }
+            return response.json();
+        })
+        .then(equipos => {
+            if (equipos.length > 0) {
+                alert(`Antes de eliminar la sala "${Nombre}", asegúrese de mover o eliminar los siguientes equipos:\n${equipos.map(equipo => equipo.Marca).join('\n')}`);
+            } else {
+                // Si no hay equipos en la sala, procede con la eliminación
                 fetch(`http://localhost:3000/eliminar-Salas/${Nombre}`, {
                     method: 'DELETE',
                 })
@@ -49,11 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!response.ok) {
                         throw new Error('Error al eliminar la sala');
                     }
-                   
                     const SalasCard = document.querySelector(`.card[data-nombre="${Nombre}"]`);
                     if (SalasCard) {
                         SalasCard.remove();
-                        alert(`se ha eliminado correctamente la sala: ${Nombre}`);
+                        alert(`Se ha eliminado correctamente la sala: ${Nombre}`);
                     } else {
                         console.error('El elemento a eliminar no se encontró en el DOM.');
                     }
@@ -62,6 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('Error:', error);
                 });
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
 
             equiposContainer.addEventListener('click', (event) => {
                 if (event.target && event.target.classList.contains('ver-mas')) {

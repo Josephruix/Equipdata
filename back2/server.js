@@ -189,14 +189,14 @@ app.post('/G-Salas', function (req, res) {
         Ubicacion,
         PuertosR,
         CapacidadE,
-        SalaE
+
     } = req.body;
 
     console.log(req.body);
 
-    const sqlQuery = 'INSERT INTO salas (Nombre, ubicacion, `N-PR`, Capacidad_de_Equipos, `Equipos_en_sala`) VALUES (?, ?, ?, ?, ?)';
+    const sqlQuery = 'INSERT INTO salas (Nombre, ubicacion, `N-PR`, Capacidad_de_Equipos ) VALUES (?, ?, ?, ? )';
 
-    conexion.query(sqlQuery, [Nombre, Ubicacion, PuertosR, CapacidadE, SalaE], function (error, results) {
+    conexion.query(sqlQuery, [Nombre, Ubicacion, PuertosR, CapacidadE,], function (error, results) {
         if (error) {
             console.error('Error al insertar datos en la base de datos:', error);
             return res.status(500).json({
