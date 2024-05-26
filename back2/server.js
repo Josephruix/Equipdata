@@ -70,8 +70,14 @@ app.post("/guardar-datos", function (req, res) {
 /*verificacion-usuario*/
 
 app.post("/verificar-usuario", function (req, res) {
-    const { usuario, Contrasena } = req.body;
-    console.log({ usuario, Contrasena });
+    const {
+        usuario,
+        Contrasena
+    } = req.body;
+    console.log({
+        usuario,
+        Contrasena
+    });
 
     conexion.query(
         `SELECT * FROM usuarios WHERE Correo = ?`,
@@ -87,7 +93,7 @@ app.post("/verificar-usuario", function (req, res) {
                     if (resultados[0].Contraseña === Contrasena) {
                         res.json({
                             mensaje: "Inicio de sesión exitoso",
-                            usuario: resultados[0] 
+                            usuario: resultados[0]
                         });
                     } else {
                         res.status(401).json({
@@ -108,17 +114,23 @@ app.post("/verificar-usuario", function (req, res) {
 app.get('/Perfil', (req, res) => {
     const correo = req.query.correo;
     if (!correo) {
-        return res.status(400).json({ mensaje: 'Correo es requerido' });
+        return res.status(400).json({
+            mensaje: 'Correo es requerido'
+        });
     }
-    
+
     conexion.query('SELECT * FROM usuarios WHERE Correo = ?', [correo], (error, resultados) => {
         if (error) {
             console.error('Error al obtener información de el usuario:', error);
-            return res.status(500).json({ error: 'Error al obtener información de el usuario' });
+            return res.status(500).json({
+                error: 'Error al obtener información de el usuario'
+            });
         }
-        
+
         if (resultados.length === 0) {
-            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+            return res.status(404).json({
+                mensaje: 'Usuario no encontrado'
+            });
         }
 
         res.json(resultados[0]);
@@ -149,7 +161,7 @@ app.post('/G-Equipos', upload.single('imagen'), function (req, res) {
             const idSala = resultados[0].idsalas;
 
             let insertar = 'INSERT INTO equipos (idEquipos, Marca, Descripcion, Estado, Empresa, Tipo_de_Equipo, fkidsalas, img) VALUES (?, ?, ?, ?, ?, ?, ?,?)';
-            conexion.query(insertar, [serial, Marca, Descripcion, Estado, Empresa, Equipo, idSala,  img], function (error) {
+            conexion.query(insertar, [serial, Marca, Descripcion, Estado, Empresa, Equipo, idSala, img], function (error) {
                 if (error) {
                     throw error;
                 }
@@ -165,7 +177,7 @@ app.post('/G-Equipos', upload.single('imagen'), function (req, res) {
         }
     });
 });
-/*eliminar equipos*/
+
 app.delete('/eliminar-equipo/:serial', function (req, res) {
     const serial = req.params.serial;
     conexion.query('DELETE FROM equipos WHERE idEquipos = ?', [serial], (error, resultados) => {
@@ -196,7 +208,7 @@ app.post('/G-Salas', function (req, res) {
 
     const sqlQuery = 'INSERT INTO salas (Nombre, ubicacion, `N-PR`, Capacidad_de_Equipos ) VALUES (?, ?, ?, ? )';
 
-    conexion.query(sqlQuery, [Nombre, Ubicacion, PuertosR, CapacidadE,], function (error, results) {
+    conexion.query(sqlQuery, [Nombre, Ubicacion, PuertosR, CapacidadE, ], function (error, results) {
         if (error) {
             console.error('Error al insertar datos en la base de datos:', error);
             return res.status(500).json({
@@ -301,7 +313,7 @@ app.delete('/eliminar-Salas/:Nombre', function (req, res) {
             mensaje: 'Equipo eliminado correctamente'
         });
     });
-}); 
+});
 
 /* Mover equipos */
 app.post('/mover-equipo', (req, res) => {
@@ -353,10 +365,14 @@ app.put('/actualizar-estado/:id', function (req, res) {
         function (error, resultados) {
             if (error) {
                 console.error('Error al actualizar estado del equipo:', error);
-                return res.status(500).json({ mensaje: 'Error al actualizar estado del equipo en la base de datos' });
+                return res.status(500).json({
+                    mensaje: 'Error al actualizar estado del equipo en la base de datos'
+                });
             }
             console.log('Estado del equipo actualizado correctamente');
-            res.json({ mensaje: 'Estado del equipo actualizado correctamente' });
+            res.json({
+                mensaje: 'Estado del equipo actualizado correctamente'
+            });
         }
     );
 });
