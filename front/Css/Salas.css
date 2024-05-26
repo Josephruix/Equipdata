@@ -6,7 +6,7 @@
     color: black;
 }
 .offcanvas-body .nav-link {
-  color: white; /* Cambia el color del texto a blanco */
+  color: white; 
 }
 
 body{
@@ -16,37 +16,38 @@ body{
 
 @media (max-width: 768px) {
     .escudo {
-        width: 100px; /* Ajusta el ancho según sea necesario */
+        width: 100px; 
         
     }
   }
   .navbar-2 {
-    display: flex; /* Utiliza el modelo de caja flexible para los elementos hijos */
-    background-color: #f8f9fa; /* Color de fondo de la barra de navegación */
-    padding: 10px 0; /* Espaciado interno superior e inferior */
+    display: flex; 
+    background-color: #f8f9fa;
+    padding: 10px 0; 
  }
 .navbar-2 .btn {
-  display: inline-flex; /* Los elementos internos se alinean en línea y utilizan flexbox */
-  align-items: center; /* Centra el contenido verticalmente */
-  justify-content: center; /* Centra el contenido horizontalmente */
-  padding: 10px; /* Espaciado interno alrededor del contenido */
-  border-radius: 5px; /* Bordes redondeados */
-  background-color: #ff5e00; /* Color de fondo del botón */
-  color: #0f0f0f; /* Color del texto e iconos */
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 10px; 
+  border-radius: 5px; 
+  background-color: #ff5e00; 
+  color: #0f0f0f; 
     position: fixed;
 }
 .navbar-2 {
   position: fixed;
   bottom: 0;
-  width: 100%; /* Ancho al 100% */
-  height: 50px; /* Largo de la barra */
-  left: 0; /* Extiende desde el borde izquierdo */
-  right: 0; /* Extiende desde el borde derecho */
+  width: 100%; 
+  height: 50px; 
+  left: 0; 
+  right: 0;
+  padding: 20px;
 }
 
 .navbar-2 .col:first-child {
-  margin-left: 100px; /* Empuja el primer botón hacia la izquierda */
+  margin-left: 100px; 
 }
 .navbar-2 .col:last-child {
-  margin-right: 100px; /* Empuja el último botón hacia la derecha */
+  margin-right: 100px; 
 }

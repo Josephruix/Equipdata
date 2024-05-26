@@ -11,50 +11,51 @@
 <body>
 <main>
     <!-- Navegador 1 -->
-<nav class="navbar navbar-dark custom-navbar fixed-top">
-    <div class="container-fluid">
-        <div class="col-auto escudo">
-            <img src="/front/images/escudo.png" alt="Logo">
-        </div>
-        <a class="navbar-brand" href="#">Ubicacion de Salas de Sistemas</a>
-        
-        <label for="notificacion-checkbox">
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon custom-toggler-icon"></span>
-            </button>
-        </label>
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <nav class="navbar custom-navbar fixed-top">
+        <div class="container-fluid">
+            <div   class="d-flex align-items-center ">
+                <div class="escudo me-0">
+                    <img src="/front/images/" alt="Logo">
+                </div>
+             
             </div>
-            <div class="offcanvas-body">
-                <li class="nav-item">
-                    <a class="nav-link" href="eventos.html">Eventos</a>
-                </li>
+            <h1 class="m-0">Salas</h1>
+            <label for="notificacion-checkbox">
                
-                <li class="nav-item">
-                    <a class="nav-link" href="Nuevasala.html">Agregar Nueva Sala</a>
-                </li>
-                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="nuevoequipo.html">Nuevo Equipo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.html">Cerra Sesion</a>
-                    </li>          
-                </ul>             
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon custom-toggler-icon"></span>
+                </button>
+            </label>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="eventos.html">Eventos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="nuevoequipo.html">Agregar Equipo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Nuevasala.html">Agregar Nueva Sala</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="Salas.html">Salas</a></li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="Login.html">Cerra Sesion</a></li>          
+                    </ul>             
+                </div>
             </div>
         </div>
-    </div>
-</nav>
-
+    </nav>
 <!-- Informacion Salas. -->
 
-<br><br>
+<br><br><br>
 
-<h1>Salas</h1>
+
 <ul id="Salas" class="list-group">
     
         
@@ -66,7 +67,7 @@
 
 
 <!-- Navegador 2. -->
-
+<br><br>
 <nav class="navbar-2 ">
     <div class="col">
         <a href="Salas.html" class="btn btn-warning">
