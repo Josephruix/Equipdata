@@ -314,12 +314,10 @@ app.delete('/eliminar-Salas/:Nombre', function (req, res) {
 
 /* Mover equipos */
 app.post('/mover-equipo', (req, res) => {
-    const {
-        equipoId,
-        nuevaSala
-    } = req.body;
+    const { equipoId, nuevaSala } = req.body;
 
-    conexion.query('SELECT idsalas FROM salas WHERE Nombre = ?', [nuevaSala], (error, resultados) => {
+    // Obtener la capacidad de la nueva sala
+    conexion.query('SELECT Capacidad_de_Equipos, (SELECT COUNT(*) FROM equipos WHERE fkidsalas = salas.idsalas) AS equiposEnSala FROM salas WHERE Nombre = ?', [nuevaSala], (error, resultados) => {
         if (error) {
             console.error('Error en la consulta:', error);
             res.status(500).json({
@@ -329,21 +327,30 @@ app.post('/mover-equipo', (req, res) => {
         }
 
         if (resultados.length > 0) {
-            const nuevaSalaId = resultados[0].idsalas;
+            const capacidadSala = resultados[0].Capacidad_de_Equipos;
+            const equiposEnSala = resultados[0].equiposEnSala;
 
-            conexion.query('UPDATE equipos SET fkidsalas = ? WHERE idEquipos = ?', [nuevaSalaId, equipoId], (error) => {
-                if (error) {
-                    console.error('Error al actualizar equipo:', error);
-                    res.status(500).json({
-                        mensaje: 'Error al actualizar equipo en la base de datos'
-                    });
-                    return;
-                }
-
-                res.json({
-                    mensaje: 'Equipo movido correctamente'
+            if (equiposEnSala >= capacidadSala) {
+                res.status(400).json({
+                    mensaje: 'La sala está llena, no se puede mover el equipo'
                 });
-            });
+            } else {
+                const nuevaSalaId = resultados[0].idsalas;
+
+                conexion.query('UPDATE equipos SET fkidsalas = ? WHERE idEquipos = ?', [nuevaSalaId, equipoId], (error) => {
+                    if (error) {
+                        console.error('Error al actualizar equipo:', error);
+                        res.status(500).json({
+                            mensaje: 'Error al actualizar equipo en la base de datos'
+                        });
+                        return;
+                    }
+
+                    res.json({
+                        mensaje: 'Equipo movido correctamente'
+                    });
+                });
+            }
         } else {
             res.status(404).json({
                 mensaje: 'No se encontró la sala especificada'
@@ -351,6 +358,7 @@ app.post('/mover-equipo', (req, res) => {
         }
     });
 });
+
 /*atuliza estado*/
 app.put('/actualizar-estado/:id', function (req, res) {
     const idEquipo = req.params.id;

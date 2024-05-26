@@ -2,17 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form-Eventos');
     const equiposContainer = document.getElementById('equipos-container');
 
-    
-
-
-
     fetch('http://localhost:3000/Salas')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al obtener los datos de las Salas');
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             const salaSelect = document.getElementById('relacion');
             const salaSelect2 = document.getElementById('final');
@@ -21,28 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 option.value = sala.Nombre;
                 option.textContent = sala.Nombre;
                 salaSelect.appendChild(option);
-                
+
                 const option2 = document.createElement('option');
                 option2.value = sala.Nombre;
                 option2.textContent = sala.Nombre;
                 salaSelect2.appendChild(option2);
-               salaSelect2.appendChild(option2);
             });
         })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    
+        .catch(error => console.error('Error:', error));
+
     form.addEventListener('change', (event) => {
         if (event.target.id === 'relacion') {
             const salaInicial = event.target.value;
             fetch(`http://localhost:3000/consulta/${salaInicial}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error al obtener los equipos relacionados con la sala');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
                     equiposContainer.innerHTML = '';
                     data.forEach(equipo => {
@@ -58,19 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         equiposContainer.appendChild(document.createElement('br'));
                     });
                 })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                .catch(error => console.error('Error:', error));
         }
     });
 
     document.getElementById('submite').addEventListener('click', (event) => {
-        event.preventDefault();  
+        event.preventDefault();
         const salaFinal = document.getElementById('final').value;
         const equiposSeleccionados = Array.from(equiposContainer.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
-
-        console.log(salaFinal);
-        console.log(equiposSeleccionados);
 
         if (salaFinal && equiposSeleccionados.length > 0) {
             equiposSeleccionados.forEach(equipoSerial => {
@@ -79,18 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ equipoId: equipoSerial, nuevaSala: salaFinal })
                 })
-                .then(response => {
+                .then(response => response.json().then(data => {
                     if (!response.ok) {
-                        throw new Error('Error al mover el equipo');
+                        throw new Error(data.mensaje);
                     }
-                    return response.json();
-                })
-                .then(data => {
                     console.log(data.mensaje);
-                    document.getElementById('success-message').innerText = "Se movio el equipo con exito";
-                })
+                    document.getElementById('success-message').innerText = "Se movió el equipo con éxito";
+                }))
                 .catch(error => {
                     console.error('Error:', error);
+                    alert(error.message); 
                 });
             });
         } else {

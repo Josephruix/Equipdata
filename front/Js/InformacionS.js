@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             <h5 class="card-title">Nombre: ${datos.Nombre}</h5>
                             <p class="card-text">Ubicacion: ${datos.ubicacion}</p>
                             <p class="card-text">Capacidad de equipos: ${datos.Capacidad_de_Equipos}</p>
-                          
                             <button class="btn btn-primary ver-mas" data-sala="${datos.Nombre}">Ver Más</button>
                             <button id="eliminar-s" class="btn btn-danger eliminar-Salas" data-nombre="${datos.Nombre}">Eliminar</button>
                         </div>
