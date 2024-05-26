@@ -19,13 +19,12 @@ body {
   max-width: 40%;
   max-height: 100%;
 }
-@media (max-width: 768px) {
-  .escudo {
-      width: 100px; /* Ajusta el ancho según sea necesario */
-      
-  }
+.Logo img {
+  max-height: 50px;
+  max-width: 100%; 
+  object-fit: contain; 
+  padding: 10px; /
 }
-
 .icono {
   width: 32px;
   height: 32px;
