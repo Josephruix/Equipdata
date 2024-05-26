@@ -316,7 +316,7 @@ app.delete('/eliminar-Salas/:Nombre', function (req, res) {
 app.post('/mover-equipo', (req, res) => {
     const { equipoId, nuevaSala } = req.body;
 
-    // Obtener la capacidad de la nueva sala
+    
     conexion.query('SELECT Capacidad_de_Equipos, (SELECT COUNT(*) FROM equipos WHERE fkidsalas = salas.idsalas) AS equiposEnSala FROM salas WHERE Nombre = ?', [nuevaSala], (error, resultados) => {
         if (error) {
             console.error('Error en la consulta:', error);
