@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     console.log(data.mensaje);
                     document.getElementById('success-message').innerText = "Se movió el equipo con éxito";
+                    alert("El equipo se movio correctamente")
                 }))
                 .catch(error => {
                     console.error('Error:', error);

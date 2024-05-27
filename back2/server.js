@@ -317,44 +317,34 @@ app.post('/mover-equipo', (req, res) => {
     const { equipoId, nuevaSala } = req.body;
 
     
-    conexion.query('SELECT Capacidad_de_Equipos, (SELECT COUNT(*) FROM equipos WHERE fkidsalas = salas.idsalas) AS equiposEnSala FROM salas WHERE Nombre = ?', [nuevaSala], (error, resultados) => {
+    conexion.query('SELECT idsalas, Capacidad_de_Equipos, (SELECT COUNT(*) FROM equipos WHERE fkidsalas = salas.idsalas) AS equiposEnSala FROM salas WHERE Nombre = ?', [nuevaSala], (error, resultados) => {
         if (error) {
             console.error('Error en la consulta:', error);
-            res.status(500).json({
-                mensaje: 'Error en la consulta a la base de datos'
-            });
+            res.status(500).json({ mensaje: 'Error en la consulta a la base de datos' });
             return;
         }
 
         if (resultados.length > 0) {
             const capacidadSala = resultados[0].Capacidad_de_Equipos;
             const equiposEnSala = resultados[0].equiposEnSala;
+            const nuevaSalaId = resultados[0].idsalas;
 
             if (equiposEnSala >= capacidadSala) {
-                res.status(400).json({
-                    mensaje: 'La sala está llena, no se puede mover el equipo'
-                });
+                res.status(400).json({ mensaje: 'La sala está llena, no se puede mover el equipo' });
             } else {
-                const nuevaSalaId = resultados[0].idsalas;
-
+               
                 conexion.query('UPDATE equipos SET fkidsalas = ? WHERE idEquipos = ?', [nuevaSalaId, equipoId], (error) => {
                     if (error) {
                         console.error('Error al actualizar equipo:', error);
-                        res.status(500).json({
-                            mensaje: 'Error al actualizar equipo en la base de datos'
-                        });
+                        res.status(500).json({ mensaje: 'Error al actualizar equipo en la base de datos' });
                         return;
                     }
 
-                    res.json({
-                        mensaje: 'Equipo movido correctamente'
-                    });
+                    res.json({ mensaje: 'Equipo movido correctamente' });
                 });
             }
         } else {
-            res.status(404).json({
-                mensaje: 'No se encontró la sala especificada'
-            });
+            res.status(404).json({ mensaje: 'No se encontró la sala especificada' });
         }
     });
 });
