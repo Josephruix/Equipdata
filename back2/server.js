@@ -280,6 +280,26 @@ app.get('/Salas', (req, res) => {
 
     });
 });
+//verificar si la sala existe
+app.get('/verificar-salas/:NombreS', (req, res) => {
+    const NombreS = req.params.NombreS;
+
+    conexion.query('SELECT * FROM salas WHERE Nombre = ?', [NombreS], (error, resultados) => {
+        if (error) {
+            console.error('Error en la consulta:', error);
+            return res.status(500).json({
+                mensaje: 'Error en la consulta a la base de datos'
+            });
+        }
+
+        if (resultados.length > 0) {
+            res.json({ existe: true });
+        } else {
+            res.json({ existe: false });
+        }
+    });
+});
+
 //relacion de equipos y salas
 app.get('/consulta/:sala', (req, res) => {
     const sala = req.params.sala;

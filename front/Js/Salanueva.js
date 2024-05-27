@@ -1,25 +1,40 @@
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('form-Salas').addEventListener('submit', function(event) {
         event.preventDefault();
+        const NombreS = document.getElementById('N-sala').value; 
+        fetch(`http://localhost:3000/verificar-salas/${NombreS}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al verificar el Nombre de la sala');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.existe) {
+                    alert('Ya existe una sala con ese nombre, escriba otro nombre ');
+                } else {
+                    agregarSala();
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error de conexión. Por favor, inténtalo de nuevo más tarde.');
+            });
+    });
 
-        
-        var Nombre = document.getElementById('N-sala').value;
+    function agregarSala() {
+        var Nombre = document.getElementById('N-sala').value; 
         var Ubicacion = document.getElementById('Ubicacion').value;
         var PuertosR = document.getElementById('N-R').value;
-    
         var CapacidadE = document.getElementById('C-Equipos').value;
-       
 
-    
         var datos = {
             Nombre: Nombre,
             Ubicacion: Ubicacion,
             PuertosR: PuertosR,
             CapacidadE: CapacidadE,
-           
         };
 
-        
         fetch('http://localhost:3000/G-Salas', {
             method: 'POST',
             headers: {
@@ -35,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             console.log('Respuesta del servidor:', data);
-            document.getElementById('success-message').innerText = "Se agrego la nueva Sala";
-            alert("Se agrego la nueva Sala")
+            document.getElementById('success-message').innerText = "Se agregó la nueva Sala";
+            alert("Se agregó la nueva Sala");
             window.location.href = `/front/html/nuevoequipo.html`;
         })
         .catch(error => {
@@ -46,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 document.getElementById('error').innerText = "Error de conexión. Por favor, intenta de nuevo más tarde.";
             }
-            
         });
-    });
+    }
 });
