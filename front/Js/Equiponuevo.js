@@ -23,26 +23,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('form-equipos').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const salaSelect = document.getElementById('idsala');
-        const salaNombre = salaSelect.value;
-        const salaCapacidad = salaSelect.options[salaSelect.selectedIndex].dataset.capacidad;
+        const equipoId = document.getElementById('idequipos').value;
 
-        fetch(`http://localhost:3000/consulta/${salaNombre}`)
+        fetch(`http://localhost:3000/verificar-equipo/${equipoId}`)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Error al obtener los equipos de la sala');
+                    throw new Error('Error al verificar el ID del equipo');
                 }
                 return response.json();
             })
             .then(data => {
-                if (data.length >= salaCapacidad) {
-                    alert('La sala está llena. No se pueden agregar más equipos.');
+                if (data.existe) {
+                    alert('El codigo de activo fijo del equipo ya existe. Por favor, escogue otro.');
                 } else {
                     agregarEquipo();
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                alert('Error de conexión. Por favor, inténtalo de nuevo más tarde.');
             });
     });
 

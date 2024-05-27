@@ -174,6 +174,27 @@ app.post('/G-Equipos', upload.single('imagen'), function (req, res) {
         }
     });
 });
+//verficar id de equipos
+app.get('/verificar-equipo/:id', (req, res) => {
+    const idEquipo = req.params.id;
+
+    conexion.query('SELECT * FROM equipos WHERE idEquipos = ?', [idEquipo], (error, resultados) => {
+        if (error) {
+            console.error('Error en la consulta:', error);
+            return res.status(500).json({
+                mensaje: 'Error en la consulta a la base de datos'
+            });
+        }
+
+        if (resultados.length > 0) {
+            res.json({ existe: true });
+        } else {
+            res.json({ existe: false });
+        }
+    });
+});
+
+//eliminaer equipos
 
 app.delete('/eliminar-equipo/:serial', function (req, res) {
     const serial = req.params.serial;
@@ -190,6 +211,29 @@ app.delete('/eliminar-equipo/:serial', function (req, res) {
             mensaje: 'Equipo eliminado correctamente'
         });
     });
+});
+
+/*atualizar estado del equipo*/
+app.put('/actualizar-estado/:id', function (req, res) {
+    const idEquipo = req.params.id;
+    const nuevoEstado = req.body.estado;
+
+    conexion.query(
+        'UPDATE equipos SET Estado = ? WHERE idEquipos = ?',
+        [nuevoEstado, idEquipo],
+        function (error, resultados) {
+            if (error) {
+                console.error('Error al actualizar estado del equipo:', error);
+                return res.status(500).json({
+                    mensaje: 'Error al actualizar estado del equipo en la base de datos'
+                });
+            }
+            console.log('Estado del equipo actualizado correctamente');
+            res.json({
+                mensaje: 'Estado del equipo actualizado correctamente'
+            });
+        }
+    );
 });
 /* Guardar datos de salas */
 app.post('/G-Salas', function (req, res) {
@@ -269,6 +313,23 @@ app.get('/consulta/:sala', (req, res) => {
 
     });
 });
+/*Eliminar Salas*/
+app.delete('/eliminar-Salas/:Nombre', function (req, res) {
+    const serial = req.params.Nombre;
+    conexion.query('DELETE FROM salas WHERE Nombre  = ?', [serial], (error, resultados) => {
+        if (error) {
+            console.error('Error al eliminar equipo:', error);
+            res.status(500).json({
+                mensaje: 'Error al eliminar equipo en la base de datos'
+            });
+            return;
+        }
+        console.log('Equipo eliminado correctamente de la base de datos');
+        res.json({
+            mensaje: 'Equipo eliminado correctamente'
+        });
+    });
+});
 /*Guardar eventos*/
 app.post('/G-Eventos', (req, res) => {
     const datos = req.body;
@@ -294,23 +355,7 @@ app.post('/G-Eventos', (req, res) => {
         }
     });
 });
-/*Eliminar Salas*/
-app.delete('/eliminar-Salas/:Nombre', function (req, res) {
-    const serial = req.params.Nombre;
-    conexion.query('DELETE FROM salas WHERE Nombre  = ?', [serial], (error, resultados) => {
-        if (error) {
-            console.error('Error al eliminar equipo:', error);
-            res.status(500).json({
-                mensaje: 'Error al eliminar equipo en la base de datos'
-            });
-            return;
-        }
-        console.log('Equipo eliminado correctamente de la base de datos');
-        res.json({
-            mensaje: 'Equipo eliminado correctamente'
-        });
-    });
-});
+
 
 /* Mover equipos */
 app.post('/mover-equipo', (req, res) => {
@@ -349,28 +394,6 @@ app.post('/mover-equipo', (req, res) => {
     });
 });
 
-/*atualiza estado*/
-app.put('/actualizar-estado/:id', function (req, res) {
-    const idEquipo = req.params.id;
-    const nuevoEstado = req.body.estado;
-
-    conexion.query(
-        'UPDATE equipos SET Estado = ? WHERE idEquipos = ?',
-        [nuevoEstado, idEquipo],
-        function (error, resultados) {
-            if (error) {
-                console.error('Error al actualizar estado del equipo:', error);
-                return res.status(500).json({
-                    mensaje: 'Error al actualizar estado del equipo en la base de datos'
-                });
-            }
-            console.log('Estado del equipo actualizado correctamente');
-            res.json({
-                mensaje: 'Estado del equipo actualizado correctamente'
-            });
-        }
-    );
-});
 
 app.listen(3000, function () {
     console.log('Servidor escuchando en el puerto 3000');
