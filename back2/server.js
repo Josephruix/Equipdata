@@ -349,7 +349,7 @@ app.post('/mover-equipo', (req, res) => {
     });
 });
 
-/*atuliza estado*/
+/*atualiza estado*/
 app.put('/actualizar-estado/:id', function (req, res) {
     const idEquipo = req.params.id;
     const nuevoEstado = req.body.estado;
