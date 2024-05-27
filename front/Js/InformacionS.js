@@ -1,13 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    function actualizarCampanaNotificaciones(mensaje) {
-        const campanaNotificaciones = document.getElementById('notificacion');
-        console.log('Elemento de notificación:', campanaNotificaciones); 
-        const nuevoMensaje = document.createElement('div');
-        nuevoMensaje.textContent = mensaje;
-        campanaNotificaciones.appendChild(nuevoMensaje);
-        console.log('Mensaje añadido:', nuevoMensaje); 
-    }
-
+   
     fetch('http://localhost:3000/Salas')
         .then(response => {
             if (!response.ok) {
@@ -50,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(equipos => {
             if (equipos.length > 0) {
-                alert(`Antes de eliminar la sala "${Nombre}", asegúrese de mover o eliminar los siguientes equipos:\n${equipos.map(equipo => equipo.Marca).join('\n')}`);
+                alert(`Antes de eliminar la sala "${Nombre}", asegúrese de mover o eliminar los siguientes equipos:\n${equipos.map(equipo =>`Marca: ${equipo.Marca}, Serial: ${equipo.idEquipos}`).join('\n')}`);
             } else {
                 
                 fetch(`http://localhost:3000/eliminar-Salas/${Nombre}`, {
