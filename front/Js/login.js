@@ -48,7 +48,7 @@ function mostrarBotonesSegunRol(Rol) {
     const botonesEliminarSalas = document.querySelectorAll('.eliminar-Salas');
     const botonesEliminarEquipos = document.querySelectorAll('.eliminar-equipo');
 
-    if (Rol === 'admin') {
+    if (Rol === 'admind') {
         botonesEliminarSalas.forEach(boton => {
             boton.style.display = 'block'; 
         });
