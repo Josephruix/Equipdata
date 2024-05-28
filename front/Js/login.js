@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             console.log('Inicio de sesión exitoso:', data);
             localStorage.setItem('usuario', JSON.stringify(data.usuario));
-            localStorage.setItem('rolUsuario', data.Rol); 
-            console.log(localStorage.setItem('rolUsuario', data.Rol))
-           window.location.href = "/front/Html/Salas.html"; 
+            localStorage.setItem('rolUsuario', data.rol);
+            mostrarBotonesSegunRol(data.rol); 
+            window.location.href = "/front/Html/Salas.html"; 
         })
         .catch(error => {
             console.error('Error:', error);
@@ -43,3 +43,31 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+function mostrarBotonesSegunRol(Rol) {
+    const botonesEliminarSalas = document.querySelectorAll('.eliminar-Salas');
+    const botonesEliminarEquipos = document.querySelectorAll('.eliminar-equipo');
+
+    if (Rol === 'admin') {
+        botonesEliminarSalas.forEach(boton => {
+            boton.style.display = 'block'; 
+        });
+        botonesEliminarEquipos.forEach(boton => {
+            boton.style.display = 'block'; 
+        });
+    } else if (Rol === 'soporte') {
+        botonesEliminarSalas.forEach(boton => {
+            boton.style.display = 'none'; 
+        });
+        botonesEliminarEquipos.forEach(boton => {
+            boton.style.display = 'none'; 
+        });
+    } else {
+        botonesEliminarSalas.forEach(boton => {
+            boton.style.display = 'none';
+        });
+        botonesEliminarEquipos.forEach(boton => {
+            boton.style.display = 'none';
+        });
+    }
+}
