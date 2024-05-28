@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         checkbox.value = equipo.idEquipos;
                         checkbox.id = `equipo-${equipo.idEquipos}`;
                         const label = document.createElement('label');
-                        label.textContent = equipo.Marca;
+                        label.textContent = equipo.idEquipos;
                         label.htmlFor = `equipo-${equipo.Serial}`;
                         equiposContainer.appendChild(checkbox);
                         equiposContainer.appendChild(label);
@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     console.log(data.mensaje);
                     document.getElementById('success-message').innerText = "Se movió el equipo con éxito";
-                    alert("El equipo se movio correctamente")
+                    alert("El equipo se movio correctamente, puede dirigirte a la pagina principal a ver lo cambios ")
+                    window.location.reload()
                 }))
                 .catch(error => {
                     console.error('Error:', error);
