@@ -1,6 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const sala = urlParams.get('sala');
+    const rolUsuario = localStorage.getItem('rolUsuario');
+
+    function mostrarBotonesSegunRol() {
+        const botonesEliminarSalas = document.querySelectorAll('.eliminar-Salas');
+        const botonesEliminarEquipos = document.querySelectorAll('.eliminar-equipo');
+        const botonesCambiarEstado= document.querySelectorAll(".editar-estado")
+
+        if (rolUsuario === 'admind') {
+            botonesEliminarSalas.forEach(boton => {
+                boton.style.display = 'block';
+            });
+            botonesEliminarEquipos.forEach(boton => {
+                boton.style.display = 'block';
+            });
+        } else if (rolUsuario === 'soporte') {
+            botonesEliminarSalas.forEach(boton => {
+                boton.style.display = 'none';
+            });
+            botonesEliminarEquipos.forEach(boton => {
+                boton.style.display = 'none';
+            });
+        } else if(rolUsuario==="lector") {
+            botonesEliminarSalas.forEach(boton => {
+                boton.style.display = 'none';
+            });
+            botonesEliminarEquipos.forEach(boton => {
+                boton.style.display = 'none';
+            });
+            botonesCambiarEstado.forEach(boton=>{
+                boton.style.display="none";
+            })
+
+        }
+    }
+   
     
 
     if (sala) {
@@ -33,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p>${datos.Tipo_de_Equipo}</p>
                             </div>
                             <button class="btn btn-danger eliminar-equipo">Eliminar</button>
-                            <button class="btn btn-secondary editar-estado">Editar Estado</button>
+                            <button  class="btn btn-secondary editar-estado">Editar Estado</button>
                             <div class="editar-estado-form" style="display: none;">
                                 <input type="text" class="nuevo-estado" placeholder="Nuevo Estado" />
                                 <button class="btn btn-success guardar-estado">Guardar</button>
@@ -154,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                 });
+                mostrarBotonesSegunRol();
             })
             .catch(error => {
                 console.error('Error:', error);

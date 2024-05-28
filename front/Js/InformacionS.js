@@ -1,4 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const rolUsuario = localStorage.getItem('rolUsuario');
+
+    function mostrarBotonesSegunRol() {
+        const botonesEliminarSalas = document.querySelectorAll('.eliminar-Salas');
+        const botonesEliminarEquipos = document.querySelectorAll('.eliminar-equipo');
+        
+
+        if (rolUsuario === 'admind') {
+            botonesEliminarSalas.forEach(boton => {
+                boton.style.display = 'block';
+            });
+            botonesEliminarEquipos.forEach(boton => {
+                boton.style.display = 'block';
+            });
+        } else if (rolUsuario === 'soporte') {
+            botonesEliminarSalas.forEach(boton => {
+                boton.style.display = 'none';
+            });
+            botonesEliminarEquipos.forEach(boton => {
+                boton.style.display = 'none';
+            });
+        } else if(rolUsuario==="lector") {
+            botonesEliminarSalas.forEach(boton => {
+                boton.style.display = 'none';
+            });
+            botonesEliminarEquipos.forEach(boton => {
+                boton.style.display = 'none';
+            });
+           
+
+    }}
    
     fetch('http://localhost:3000/Salas')
         .then(response => {
@@ -77,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = `equipos.html?sala=${sala}`;
                 }
             });
+            mostrarBotonesSegunRol();
         })
         .catch(error => {
             console.error('Error:', error);
