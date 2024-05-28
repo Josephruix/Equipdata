@@ -78,8 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             console.log('Respuesta del servidor:', data);
             document.getElementById('success-message').innerText = "Equipo añadido correctamente";
-            alert("Equipo añadido correctamente. Lo dirigiremos a la página principal");
-            window.location.href = `/front/html/Salas.html`;
+            alert("El equipo ha sido añadido correctamente. Por favor, dirígete a la página principal para verificar si el equipo aparece en la sala correspondiente");
+           // window.location.href = `/front/html/Salas.html`;
+           window.location.reload()
         })
         .catch(error => {
             console.error('Error:', error);
