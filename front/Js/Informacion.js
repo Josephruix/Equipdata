@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const botonesEliminarSalas = document.querySelectorAll('.eliminar-Salas');
         const botonesEliminarEquipos = document.querySelectorAll('.eliminar-equipo');
         const botonesCambiarEstado= document.querySelectorAll(".editar-estado")
+        const botonagregarsalas=document.getElementById("Sala")
 
         if (rolUsuario === 'admind') {
             botonesEliminarSalas.forEach(boton => {
@@ -30,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 boton.style.display = 'none';
             });
             botonesCambiarEstado.forEach(boton=>{
+                boton.style.display="none";
+            })
+            botonagregarsalas.forEach(boton=>{
                 boton.style.display="none";
             })
 
@@ -57,13 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const contenidoCard = `
                         <div class="card-body">
-                            <h5 class="card-title">${datos.Marca}</h5>
-                            <p class="card-text">${datos.idEquipos}</p>
-                            <p class="estado">${datos.Estado}</p>
-                            <button class="btn btn-primary ver-mas">Ver más</button>
+                            <h5 class="card-title">Marca: ${datos.Marca}</h5>
+                            <p class="card-text">Serial: ${datos.idEquipos}</p>
+                            <p class="estado">Estado: ${datos.Estado}</p>
+                            <button class="btn btn-primary ver-mas">Ver más</button> 
                             <div class="contenido-adicional" style="display: none;">
-                                <p>${datos.Descripcion}</p>
-                                <p>${datos.Empresa}</p>
+                                <p>Descripcion: ${datos.Descripcion}</p>
+                                <p>Empresa: ${datos.Empresa}</p> 
                                 <p>${datos.Estado}</p>
                                 <p>${datos.Tipo_de_Equipo}</p>
                             </div>
